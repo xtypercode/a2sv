@@ -1,0 +1,16 @@
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        counter = set()
+        left = curr_sum = ans = 0
+
+        for right in range(len(nums)):
+            while nums[right] in counter:
+                counter.remove(nums[left])
+                curr_sum -= nums[left]
+                left += 1
+
+            counter.add(nums[right])
+            curr_sum += nums[right]
+            ans = max(ans, curr_sum)
+
+        return ans
